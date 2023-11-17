@@ -49,6 +49,4 @@ const teams = [
   },
 ];
 
-export default {
-  teams,
-}
+export default teams;

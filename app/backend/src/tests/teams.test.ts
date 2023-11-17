@@ -14,44 +14,35 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Testa rota /teams', function () {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
-
-  // let chaiHttpResponse: Response;
-
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
-
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
-
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
-
-  //   expect(...)
-  // });
+  afterEach(sinon.restore);
 
   it('Verifica se foi encontrado todos os times', async function () {
     // Arrange
-    sinon
-      .stub(SequelizeTeam, "findAll")
-      .resolves(teams as any);
+    sinon.stub(SequelizeTeam, 'findAll').resolves(teams as any);
     // Act
     const chaiHttpResponse = await chai
       .request(app)
       .get('/teams');
+    console.log(chaiHttpResponse);
     // Assert
-    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.status).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.an('array');
     expect(chaiHttpResponse.body).to.deep.equal(teams);
+  });
+
+  it ('Verifica se foi encontrado o time com id 1', async function () {
+    // Arrange
+    const team = teams[0];
+    sinon
+      .stub(SequelizeTeam, "findByPk")
+      .resolves(team as any);
+    // Act
+    const chaiHttpResponse = await chai
+      .request(app)
+      .get('/teams/1');
+    // Assert
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.an('object');
+    expect(chaiHttpResponse.body).to.deep.equal(team);
   });
 });

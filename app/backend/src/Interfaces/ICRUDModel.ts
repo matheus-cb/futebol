@@ -9,6 +9,11 @@ export interface ICRUDModelReader<T> {
   findById(id: ID): Promise<T | null>,
 }
 
+export interface ICRUDModelLogin<T> {
+  findUserByEmail(email: string): Promise<T | null>,
+  // findUserById(id: ID): Promise<T | null>,
+}
+
 // export interface ICRUDModelUpdater<T> {
 //   update(id: ID, data: Partial<T>): Promise<T | null>,
 // }
@@ -18,4 +23,4 @@ export interface ICRUDModelReader<T> {
 // }
 
 export interface ICRUDModel<T>
-  extends ICRUDModelCreator<T>, ICRUDModelReader<T> { }
+  extends ICRUDModelCreator<T>, ICRUDModelReader<T>, ICRUDModelLogin<T> { }

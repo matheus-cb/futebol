@@ -9,7 +9,7 @@ module.exports = {
     database: 3306,
   },
   jwtSecret: process.env.JWT_SECRET || "jwt_secret",
-  defaultDelay: 5000,
+  defaultDelay: 10000,
   defaultRounds: 30,
   puppeteerDefs: {
     headless: !(process.env.SHOW_BROWSER === "true"),

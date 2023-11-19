@@ -26,6 +26,9 @@ export default {
         type: DataTypes.STRING,
         allowNull: false,
       },
-    });
+    })
+  },
+  down(queryInterface: QueryInterface) {
+    return queryInterface.dropTable('users');
   }
 }

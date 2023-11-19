@@ -14,13 +14,13 @@ export interface ICRUDModelLogin<T> {
   // findUserById(id: ID): Promise<T | null>,
 }
 
-// export interface ICRUDModelUpdater<T> {
-//   update(id: ID, data: Partial<T>): Promise<T | null>,
-// }
+export interface ICRUDModelUpdater<T> {
+  update(id: ID, data: Partial<T>): Promise<T | null>,
+}
 
-// export interface ICRUDModelDeleter {
-//   delete(id: ID): Promise<number>,
-// }
+export interface ICRUDModelDeleter {
+  delete(id: ID): Promise<number>,
+}
 
 export interface ICRUDModel<T>
-  extends ICRUDModelCreator<T>, ICRUDModelReader<T>, ICRUDModelLogin<T> { }
+  extends ICRUDModelCreator<T>, ICRUDModelReader<T> { }

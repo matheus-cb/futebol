@@ -70,10 +70,24 @@ export default class MatchesModel implements IModelMatches {
     await this.model.update({ inProgress: false }, { where: { id } });
   }
 
+  public async findAllHomeFinishedMatches(): Promise<IMatches[]> {
+    return this.model.findAll({
+      where: { inProgress: false },
+      include: [{ model: SequelizeTeam, as: 'homeTeam', attributes: ['teamName'] }],
+    });
+  }
+
   public async updateMatch(
     id: number,
     goals: { homeTeamGoals: number, awayTeamGoals: number },
   ): Promise<void> {
     await this.model.update(goals, { where: { id, inProgress: true } });
+  }
+
+  public async findAllAwayFinishedMatches(): Promise<IMatches[]> {
+    return this.model.findAll({
+      where: { inProgress: false },
+      include: [{ model: SequelizeTeam, as: 'awayTeam', attributes: ['teamName'] }],
+    });
   }
 }

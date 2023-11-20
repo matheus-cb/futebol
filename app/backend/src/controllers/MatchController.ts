@@ -47,4 +47,14 @@ export default class MatchController {
     const newMatch = await this.matchService.createMatch(matchData);
     return res.status(201).json(newMatch);
   }
+
+  public async getLeaderboard(req: Request, res: Response): Promise<Response> {
+    const leaderboardData = await this.matchService.calculateHomeLeaderboard();
+    return res.status(200).json(leaderboardData);
+  }
+
+  public async getAwayLeaderboard(req: Request, res: Response): Promise<Response> {
+    const leaderboardData = await this.matchService.calculateAwayLeaderboard();
+    return res.status(200).json(leaderboardData);
+  }
 }
